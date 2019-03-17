@@ -8,6 +8,7 @@ using System.Reflection;
 using Discord;
 using Discord.WebSocket;
 using Discord.Commands;
+using Saucebot.Commands;
 
 namespace Saucebot
 {
@@ -88,7 +89,7 @@ namespace Saucebot
 
             client.MessageReceived += MessageRecieved;
             client.ReactionAdded += ReactionAdded;
-            await commands.AddModulesAsync(Assembly.GetEntryAssembly(), null); //May need to make an IServiceProvider unsure tho
+            await commands.AddModulesAsync(Assembly.GetEntryAssembly(), null);
         }
 
         public async Task MessageRecieved(SocketMessage SOCKET_MESSAGE)
@@ -99,12 +100,23 @@ namespace Saucebot
             if (context.User.IsBot) return;
             if (!message.Content.StartsWith("??")) return;
 
+            string content = message.Content.Remove(2);
 
+            CommandHandler handler = new CommandHandler(context);
+
+            if (content == "sauce") await handler.FindSource();
+            if (content.StartsWith("sauce ")) await handler.FindSource(content.Remove(6));
         }
 
         public async Task ReactionAdded(Cacheable<IUserMessage, ulong> MESSAGE, ISocketMessageChannel CHANNEL, SocketReaction SOCKET_REACTION)
         {
             var reaction = SOCKET_REACTION.Emote;
+
+            IUserMessage temp = await MESSAGE.DownloadAsync();
+
+            CommandHandler handler = new CommandHandler(null);
+            handler.SendMessage();
+
             //reaction.
         }
 

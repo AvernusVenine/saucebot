@@ -11,7 +11,7 @@ namespace Saucebot
 {
     class Program
     {
-        private const string TOKEN_PATH = "C:\\Users\\Avernus\\Desktop\\Saucebot\\Saucebot\\Saucebot\\Main\\secret.txt";
+        private const string TOKEN_PATH = "C:\\Users\\Avernus\\Desktop\\Sauce Bot\\saucebot\\Saucebot\\Saucebot\\Main\\secret.txt";
 
         public static void Main(string[] args)
         {
